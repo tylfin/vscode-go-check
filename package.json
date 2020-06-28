@@ -17,7 +17,7 @@
 		"commands": [
 			{
 				"command": "vscode-go-check.helloWorld",
-				"title": "Hello World"
+				"title": "Go Check for Visual Studio Code"
 			}
 		]
 	},
