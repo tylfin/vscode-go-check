@@ -6,8 +6,7 @@
 'use strict';
 
 import vscode = require('vscode');
-import { CancellationToken, CodeLens, Command, TextDocument } from 'vscode';
-import { GoBaseCodeLensProvider } from 'Go/src/goBaseCodelens';
+import { CancellationToken, CodeLens, TextDocument } from 'vscode';
 import { GoDocumentSymbolProvider } from 'Go/src/goOutline';
 import { getBenchmarkFunctions } from 'Go/src/testUtils';
 import { getGoConfig } from 'Go/src/util';
@@ -34,6 +33,29 @@ export function getTestFunctions(
                     (testFuncRegex.test(sym.name) || (testify && testMethodRegex.test(sym.name)))
             );
         });
+}
+
+export abstract class GoBaseCodeLensProvider implements vscode.CodeLensProvider {
+    protected enabled: boolean = true;
+    private onDidChangeCodeLensesEmitter = new vscode.EventEmitter<void>();
+
+    public get onDidChangeCodeLenses(): vscode.Event<void> {
+        return this.onDidChangeCodeLensesEmitter.event;
+    }
+
+    public setEnabled(enabled: false): void {
+        if (this.enabled !== enabled) {
+            this.enabled = enabled;
+            this.onDidChangeCodeLensesEmitter.fire();
+        }
+    }
+
+    public provideCodeLenses(
+        document: vscode.TextDocument,
+        token: vscode.CancellationToken
+    ): vscode.ProviderResult<vscode.CodeLens[]> {
+        return [];
+    }
 }
 
 export class GoRunTestCodeLensProvider extends GoBaseCodeLensProvider {

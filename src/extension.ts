@@ -1,3 +1,5 @@
+'use strict';
+
 import * as vscode from 'vscode';
 import { GoRunTestCodeLensProvider } from './run';
 import { GO_MODE } from 'Go/src/goMode';
