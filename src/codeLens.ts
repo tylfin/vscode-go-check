@@ -1,8 +1,3 @@
-/*---------------------------------------------------------
- * Copyright (C) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See LICENSE in the project root for license information.
- *--------------------------------------------------------*/
-
 'use strict';
 
 import vscode = require('vscode');
@@ -10,30 +5,7 @@ import { CancellationToken, CodeLens, TextDocument } from 'vscode';
 import { GoDocumentSymbolProvider } from 'Go/src/goOutline';
 import { getBenchmarkFunctions } from 'Go/src/testUtils';
 import { getGoConfig } from 'Go/src/util';
-
-const testFuncRegex = /^Test.*|^Example.*/;
-const testMethodRegex = /^\(([^)]+)\)\.(Test.*)$/;
-
-// @TODO fix to handle methods
-export function getTestFunctions(
-    doc: vscode.TextDocument,
-    token: vscode.CancellationToken
-): Thenable<vscode.DocumentSymbol[]> {
-    const documentSymbolProvider = new GoDocumentSymbolProvider(true);
-    return documentSymbolProvider
-        .provideDocumentSymbols(doc, token)
-        .then((symbols) => symbols[0].children)
-        .then((symbols) => {
-            const testify = symbols.some(
-                (sym) => sym.kind === vscode.SymbolKind.Namespace && sym.name === '"github.com/stretchr/testify/suite"'
-            );
-            return symbols.filter(
-                (sym) =>
-                    sym.kind === vscode.SymbolKind.Method &&
-                    (testFuncRegex.test(sym.name) || (testify && testMethodRegex.test(sym.name)))
-            );
-        });
-}
+import { getTestFunctions } from './testUtils';
 
 export abstract class GoBaseCodeLensProvider implements vscode.CodeLensProvider {
     protected enabled: boolean = true;
@@ -93,11 +65,11 @@ export class GoRunTestCodeLensProvider extends GoBaseCodeLensProvider {
         const packageCodeLens = [
             new CodeLens(range, {
                 title: 'run package tests',
-                command: 'go.test.package'
+                command: 'go.check.test.package'
             }),
             new CodeLens(range, {
                 title: 'run file tests',
-                command: 'go.test.file'
+                command: 'go.check.test.file'
             })
         ];
         if (
@@ -108,11 +80,11 @@ export class GoRunTestCodeLensProvider extends GoBaseCodeLensProvider {
             packageCodeLens.push(
                 new CodeLens(range, {
                     title: 'run package benchmarks',
-                    command: 'go.benchmark.package'
+                    command: 'go.check.benchmark.package'
                 }),
                 new CodeLens(range, {
                     title: 'run file benchmarks',
-                    command: 'go.benchmark.file'
+                    command: 'go.check.benchmark.file'
                 })
             );
         }
@@ -129,12 +101,12 @@ export class GoRunTestCodeLensProvider extends GoBaseCodeLensProvider {
             for (const f of testFunctions) {
                 codelens.push(new CodeLens(f.range, {
                     title: 'run test',
-                    command: 'go.test.cursor',
+                    command: 'go.check.test.cursor',
                     arguments: [{ functionName: f.name }]
                 }));
                 codelens.push(new CodeLens(f.range, {
                     title: 'debug test',
-                    command: 'go.debug.cursor',
+                    command: 'go.check.debug.cursor',
                     arguments: [{ functionName: f.name }]
                 }));
             }
@@ -150,12 +122,12 @@ export class GoRunTestCodeLensProvider extends GoBaseCodeLensProvider {
             for (const f of benchmarkFunctions) {
                 codelens.push(new CodeLens(f.range, {
                     title: 'run benchmark',
-                    command: 'go.benchmark.cursor',
+                    command: 'go.check.benchmark.cursor',
                     arguments: [{ functionName: f.name }]
                 }));
                 codelens.push(new CodeLens(f.range, {
                     title: 'debug benchmark',
-                    command: 'go.debug.cursor',
+                    command: 'go.check.debug.cursor',
                     arguments: [{ functionName: f.name }]
                 }));
             }
