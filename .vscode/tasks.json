@@ -15,6 +15,13 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"type": "npm",
+			"script": "webpack",
+			"problemMatcher": [],
+			"label": "npm: webpack",
+			"detail": "webpack --mode development"
 		}
 	]
 }
