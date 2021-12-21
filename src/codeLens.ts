@@ -4,7 +4,7 @@ import vscode = require('vscode');
 import { CancellationToken, CodeLens, TextDocument } from 'vscode';
 import { GoDocumentSymbolProvider } from 'Go/src/goOutline';
 import { getBenchmarkFunctions } from 'Go/src/testUtils';
-import { getGoConfig } from 'Go/src/util';
+import { getGoConfig } from 'Go/src/config';
 import { getTestFunctions } from './testUtils';
 
 export abstract class GoBaseCodeLensProvider implements vscode.CodeLensProvider {

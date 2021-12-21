@@ -2,7 +2,7 @@
 
 import * as vscode from 'vscode';
 import { GO_MODE } from 'Go/src/goMode';
-import { getGoConfig } from 'Go/src/util';
+import { getGoConfig } from 'Go/src/config';
 import { cancelRunningTests, showTestOutput } from 'Go/src/testUtils';
 import { toggleCoverageCurrentPackage } from 'Go/src/goCover';
 // Overriden classes from the Go codebase

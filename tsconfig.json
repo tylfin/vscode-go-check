@@ -3,21 +3,19 @@
 		"module": "commonjs",
 		"outDir": "out",
 		"sourceMap": true,
-		"target": "es6",
+		"target": "es2017",
 		"lib": [
-			"es2015"
+			"es2017"
 		],
 		"noImplicitAny": true,
 		"noImplicitThis": true,
 		"alwaysStrict": true,
 		"strictBindCallApply": true,
 		"strictFunctionTypes": true,
+		"esModuleInterop": true,
 	},
-	"include": [
-		"node_modules/Go/typings/*",
-		"src/*"
-	],
 	"exclude": [
-		".vscode-test",
+		"node_modules",
+		"third_party"
 	]
 }
