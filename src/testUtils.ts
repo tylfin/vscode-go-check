@@ -171,9 +171,8 @@ export function getTestFunctionDebugArgs(
     const instanceMethod = extractInstanceTestName(testFunctionName);
     if (instanceMethod) {
         const testFns = findAllTestSuiteRuns(document, testFunctions);
-        const testSuiteRuns = ['-test.run', `^${testFns.map((t) => t.name).join('|')}$`];
-        const testSuiteTests = ['-testify.m', `^${instanceMethod}$`];
-        return [...testSuiteRuns, ...testSuiteTests];
+        const testSuiteTests = ['-check.f', `^${instanceMethod}$`];
+        return [...testSuiteTests];
     } else {
         return ['-test.run', `^${testFunctionName}$`];
     }
