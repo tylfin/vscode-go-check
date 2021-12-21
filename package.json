@@ -2,13 +2,16 @@
 	"name": "vscode-go-check",
 	"displayName": "vscode-go-check",
 	"description": "VS Code Extension for the check.v1 test suite",
-	"version": "0.0.1",
+	"version": "2021.12.21-0",
 	"engines": {
 		"vscode": "^1.59.0"
 	},
 	"categories": [
 		"Testing"
 	],
+	"author": {
+		"name": "Tyler Finethy"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/tylfin/vscode-go-check"

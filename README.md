@@ -1,6 +1,11 @@
 # Go Check for Visual Studio Code
 
-VS Code Extension for the check.v1 test suite coming soon!
+VS Code Extension for the [Go `check.v1` test suite](https://gopkg.in/check.v1)
+
+## Installation
+
+Only manual installations are currently supported. Simply download the latest release and follow the instructions
+here to [Install from a VSIX](https://code.visualstudio.com/docs/editor/extension-marketplace#_install-from-a-vsix).
 
 ## Run in for development
 
