@@ -7,24 +7,36 @@
 		"vscode": "^1.59.0"
 	},
 	"categories": [
-		"Other"
+		"Testing"
 	],
-	"activationEvents": [
-		"onCommand:vscode-go-check.helloWorld"
-	],
-	"main": "./dist/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "vscode-go-check.helloWorld",
-				"title": "Go Check for Visual Studio Code"
-			}
-		]
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tylfin/vscode-go-check"
 	},
+	"bugs": {
+		"url": "https://github.com/tylfin/vscode-go-check/issues"
+	},
+	"main": "./dist/extension.js",
+	"activationEvents": [
+		"onLanguage:go",
+		"workspaceContains:*.go",
+		"workspaceContains:*/*.go",
+		"workspaceContains:*/*/*.go",
+		"onCommand:go.gopath",
+		"onCommand:go.tools.install",
+		"onCommand:go.locate.tools",
+		"onCommand:go.show.commands",
+		"onCommand:go.run.modinit",
+		"onDebugInitialConfigurations",
+		"onDebugResolve:go",
+		"onWebviewPanel:welcomeGo",
+		"onView:go.test.profile"
+	],
 	"scripts": {
-		"vscode:prepublish": "webpack --mode production",
+		"vscode:prepublish": "npm run package",
 		"webpack": "webpack --mode development",
 		"webpack-dev": "webpack --mode development --watch",
+		"package": "webpack --mode production --devtool hidden-source-map",
 		"test-compile": "tsc -p ./",
 		"bundle": "esbuild src/extension.ts --bundle --outdir=dist --external:vscode --format=cjs --platform=node",
 		"compile": "npm run bundle",
